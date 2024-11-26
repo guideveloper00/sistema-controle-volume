@@ -1,6 +1,5 @@
 import { collection, addDoc, updateDoc, doc, getDocs, setDoc } from "firebase/firestore";
 import db from "../firebase";
-import { Station } from "../types/station";
 
 const COLLECTION_NAME = "stations";
 
@@ -24,7 +23,7 @@ export const saveStation = async (station: any) => {
   }
 };
 
-export const saveCollectionLog = async (station: Station, date: Date) => {
+export const saveCollectionLog = async (station: any, date: Date) => {
   const timestamp = date.toISOString();
   const documentId = `request_${station.id}_${timestamp}`;
   const stationVolume = station.volume;
@@ -37,12 +36,13 @@ export const saveCollectionLog = async (station: Station, date: Date) => {
       stationVolume,
       status: "collection requested",
     });
+    const stationRef = doc(db, COLLECTION_NAME, stationId);
+    await updateDoc(stationRef, station);
     console.log(`Log de coleta salvo com ID: ${documentId}`);
   } catch (error) {
     console.error("Erro ao salvar log de coleta:", error);
   }
 };
-
 
 export const getStations = async () => {
   const querySnapshot = await getDocs(collection(db, COLLECTION_NAME));
