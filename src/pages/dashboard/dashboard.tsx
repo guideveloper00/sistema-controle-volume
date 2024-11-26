@@ -22,7 +22,6 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       stations.forEach(async (station) => {
-        await saveStation(station);
 
         if (station.volume >= 80) {
           console.log(`Pedido de coleta para ${station.name}`);
