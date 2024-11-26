@@ -27,8 +27,8 @@ export const saveStation = async (station: any) => {
 export const saveCollectionLog = async (station: Station, date: Date) => {
   const timestamp = date.toISOString();
   const documentId = `request_${station.id}_${timestamp}`;
-  const stationVolume = station.volume
-  const stationId= station.id
+  const stationVolume = station.volume;
+  const stationId = station.id;
 
   try {
     await setDoc(doc(db, "collectionLogs", documentId), {
@@ -41,10 +41,8 @@ export const saveCollectionLog = async (station: Station, date: Date) => {
   } catch (error) {
     console.error("Erro ao salvar log de coleta:", error);
   }
-
-  const logRef = collection(db, "collectionLogs");
-  await addDoc(logRef, { stationId, date, type: "log" });
 };
+
 
 export const getStations = async () => {
   const querySnapshot = await getDocs(collection(db, COLLECTION_NAME));
