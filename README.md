@@ -1,70 +1,90 @@
-# Getting Started with Create React App
+Sistema de Controle de Volume de Armazenamento
+Este projeto é uma aplicação desenvolvida para gerenciar volumes de estações de armazenamento de resíduos. Ele permite que os usuários monitorem o nível de ocupação de cada estação e gerenciem pedidos de coleta automaticamente quando um volume crítico for atingido.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+🎯 Objetivo
+Criar um painel interativo para:
 
-## Available Scripts
+Monitorar três estações de armazenamento.
+Registrar o volume de ocupação de cada estação.
+Gerar automaticamente um pedido de coleta ao atingir 80% de ocupação.
+Confirmar as coletas e reiniciar o volume da estação para 0%.
+Registrar todas as operações no Firebase para análises futuras.
+🛠️ Tecnologias Utilizadas
+React: Biblioteca para criação da interface.
+TypeScript: Para tipagem estática.
+Material UI (MUI): Para o design moderno e responsivo.
+Firebase: Para salvar dados de volumes e coletas.
+Node.js: Para possíveis expansões no backend (não implementado no momento).
+📦 Configuração do Projeto
+Pré-requisitos
+Certifique-se de ter o seguinte instalado:
 
-In the project directory, you can run:
+Node.js (versão 16 ou superior)
+npm ou yarn
+Conta no Firebase
+Instalação
+Clone este repositório:
 
-### `npm start`
+git clone https://github.com/guideveloper00/sistema-controle-volume.git
+cd sistema-controle-volume
+Instale as dependências:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+npm install
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Configure o Firebase:
 
-### `npm test`
+No Firebase, crie um novo projeto.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Ative o Realtime Database.
 
-### `npm run build`
+Copie as configurações do Firebase e crie um arquivo .env com as seguintes variáveis:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+env
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
+  
+npm start
+Abra o navegador em http://localhost:3000.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+🚀 Funcionalidades
+Monitoramento de Estações:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Cada estação exibe o nome e o volume de ocupação.
+O usuário pode atualizar o volume manualmente.
+Gerar Pedido de Coleta:
 
-### `npm run eject`
+Se o volume ultrapassar 80%, o sistema gera automaticamente um pedido de coleta.
+Confirmar Coleta:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+O usuário pode confirmar a coleta para uma estação, reiniciando seu volume para 0%.
+Salvar no Firebase:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Os volumes e pedidos de coleta são registrados no banco de dados a cada 5 minutos.
+🖼️ Interface do Usuário
+A aplicação apresenta uma interface moderna e responsiva, criada com Material UI. Ela inclui:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Cartões individuais para cada estação.
+Indicadores visuais para volumes acima de 80%.
+Botão para confirmar coleta diretamente nos cartões.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+📂 Estrutura do Projeto
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+src/
+│
+├── components/
+│   ├── dtationCard.tsx       # Componente para exibir informações da estação
+│
+├── services/
+│   ├── stationsServices.ts   # Conexões com o Firebase
+│
+├── pages/
+│   ├── dashboard.tsx         # Página principal da aplicação
+│
+├── App.tsx                   # Componente raiz
+├── index.tsx                 # Entrada da aplicação
+└── firebase.ts         # Configurações do Firebase
